@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { RestGridComponent } from './rest-grid.component';
 import {
   MatCheckboxModule,
@@ -12,7 +12,8 @@ import {
   ],
   imports: [
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    CommonModule
   ],
   exports: [
     RestGridComponent
