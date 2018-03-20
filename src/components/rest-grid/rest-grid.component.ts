@@ -12,9 +12,6 @@ export class RestGridComponent {
   @Input() dataSource: MatTableDataSource<any>;
   @Input() selection: SelectionModel<any>;
 
-  // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  // selection = new SelectionModel<Element>(true, []);
-
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
