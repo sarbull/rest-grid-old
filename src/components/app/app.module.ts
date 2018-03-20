@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { RestGridModule } from '../rest-grid/rest-grid.module';
 
+import { RestGridContainerModule } from '../rest-grid-container/rest-grid-container.module';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { RestGridModule } from '../rest-grid/rest-grid.module';
     FormsModule,
     BrowserAnimationsModule,
     RestGridModule,
+    RestGridContainerModule,
     MatCardModule
   ],
   bootstrap: [
