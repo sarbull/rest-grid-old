@@ -7,7 +7,7 @@ const projects = {
 };
 
 app.get('/api/elements', (req, res) => {
-  setTimeout(() => res.send(projects.data), 3000);
+  setTimeout(() => res.send(projects.data), 2000);
 });
 app.get('/api/elements/grid', (req, res) => res.json(projects.grid));
 

@@ -1,40 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {RestGridContainerService} from './rest-grid-container.service';
-import {GridOptions} from './grid-options.interface';
-import { ElementInterface } from './element.interface';
+import {GridOptions} from '../rest-grid/grid-options.interface';
+import {ElementInterface} from './element.interface';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-rest-grid-container',
   templateUrl: 'rest-grid-container.component.html',
 })
 export class RestGridContainerComponent implements OnInit {
-  displayedColumns = [
-    'select',
-    'position',
-    'name',
-    'weight',
-    'symbol'
-  ];
-
-  dataSource = new MatTableDataSource<ElementInterface>();
   selection = new SelectionModel<ElementInterface>(true, []);
 
-  gridOptions: GridOptions = null;
+  gridOptions: Observable<GridOptions> = new Observable<GridOptions>();
+  dataObservable: Observable<ElementInterface[]> = new Observable<ElementInterface[]>();
 
-  constructor(private _restGridContainerService: RestGridContainerService) {}
+  constructor(private _restGridContainerService: RestGridContainerService) {
+  }
 
   ngOnInit() {
-    this._restGridContainerService.getElements().subscribe((data: ElementInterface[]) => {
-      data.forEach((e) => {
-        this.dataSource.data.push(e);
-      });
-    });
+    this.dataObservable = this._restGridContainerService.getElements();
 
-
-    this._restGridContainerService.getGridOptions().subscribe((data: GridOptions) => {
-      this.gridOptions = data;
-    });
+    this.gridOptions = this._restGridContainerService.getGridOptions();
   }
 }
