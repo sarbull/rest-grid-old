@@ -16,7 +16,7 @@ export class RestGridContainerService {
   getElements(): Observable<ElementInterface[]> {
     if (!this._elements) {
       this._elements = this._http.get('/api/elements').map((response: ElementInterface[]) => {
-        const e = new Array<ElementInterface>();
+        const e: ElementInterface[] = [];
 
         response.forEach((element: ElementInterface) => {
           e.push(element);
