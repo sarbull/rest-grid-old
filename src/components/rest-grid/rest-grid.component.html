@@ -3,7 +3,17 @@
 <mat-table *ngIf="dataIsReady()" #table [dataSource]="dataSource">
   <ng-container *ngFor="let column of displayedColumns;" matColumnDef="{{ column }}">
     <div *ngIf="column != 'select'">
-      <mat-header-cell *matHeaderCellDef>{{ column.toLocaleUpperCase() }}</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        {{ column.toLocaleUpperCase() }}
+
+        <mat-icon>&#xE5D8;</mat-icon>
+
+        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Item 1</button>
+          <button mat-menu-item>Item 2</button>
+        </mat-menu>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element;">{{ element[column] }}</mat-cell>
     </div>
 
