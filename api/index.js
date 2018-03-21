@@ -7,8 +7,10 @@ const projects = {
 };
 
 app.get('/api/elements', (req, res) => {
-  setTimeout(() => res.send(projects.data), 2000);
+  setTimeout(() => res.send(projects.data), 3000);
 });
-app.get('/api/elements/grid', (req, res) => res.json(projects.grid));
+app.get('/api/elements/grid', (req, res) => {
+  setTimeout(() => res.send(projects.grid), 6000);
+});
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

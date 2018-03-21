@@ -10,27 +10,43 @@ import { Definition } from './grid-options.interface';
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {
-  displayedColumns: Array<String> = [
-    'select'
-  ];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
+  displayedColumns: Array<String> = [];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @Input() gridOptions: Observable<GridOptions>;
   @Input() dataObservable: Observable<any>;
   @Input() selection: SelectionModel<any>;
 
+  constructor() {
+    console.log('dataSource = ', this.dataSource.data.length);
+    console.log('displayedColumns = ', this.displayedColumns.length);
+  }
+
   ngOnInit() {
     this.dataObservable.subscribe((data: any) => {
-      data.forEach((e) => {
-        this.dataSource.data.push(e);
-      });
+      if (data.length) {
+        data.forEach((e) => {
+          this.dataSource.data.push(e);
+        });
+      }
+
+      console.log('dataSource on Observable', this.dataSource.data.length);
     });
 
     this.gridOptions.subscribe((g: GridOptions) => {
-      this.displayedColumns = this.displayedColumns.concat(g.columns.map((c: Definition) => {
-        return c.name;
-      }));
+      if (g) {
+        this.displayedColumns = this.displayedColumns.concat(['select'], g.columns.map((c: Definition) => {
+          return c.name;
+        }));
+      }
+
+      console.log('displayedColumns on Observable', this.displayedColumns.length);
     });
+  }
+
+  dataIsReady(): boolean {
+    return this.dataSource.data.length > 0 &&
+      this.displayedColumns.length > 0;
   }
 
   isAllSelected() {
