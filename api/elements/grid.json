@@ -1,0 +1,24 @@
+{
+  "columns": {
+    "position": {
+      "type": "number",
+      "filter": false,
+      "sort": false
+    },
+    "name": {
+      "type": "string",
+      "filter": false,
+      "sort": false
+    },
+    "weight": {
+      "type": "number",
+      "filter": false,
+      "sort": false
+    },
+    "symbol": {
+      "type": "string",
+      "filter": false,
+      "sort": false
+    }
+  }
+}

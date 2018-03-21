@@ -27,3 +27,22 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Documentation
+
+## Filtering
+
+| Types              | Description                             |
+|:------------------ |:--------------------------------------- |
+| numberColumnFilter | A Number Filter for number comparisons. |
+| textColumnFilter   | A Text Filter for string comparisons.   |
+| dateColumnFilter   | A Date Filter for date comparisons.     |
+| setColumnFilter    | A set of data filter type.              |
+
+## Sorting
+
+|  Types             | Description                |
+|:------------------ |:-------------------------- |
+| numberComparator   | Sorting for numbers.       |
+| textComparator     | Sorting for strings.       |
+| dateComparator     | Sorting for date entities. |

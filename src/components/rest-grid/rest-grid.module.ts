@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestGridComponent } from './rest-grid.component';
 import {
-  MatCheckboxModule,
+  MatCheckboxModule, MatProgressSpinnerModule,
   MatTableModule
 } from '@angular/material';
 
@@ -11,6 +11,7 @@ import {
     RestGridComponent
   ],
   imports: [
+    MatProgressSpinnerModule,
     MatTableModule,
     MatCheckboxModule,
     CommonModule

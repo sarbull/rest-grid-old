@@ -1,4 +1,6 @@
-<mat-table #table [dataSource]="dataSource">
+<mat-spinner *ngIf="dataSource.data.length === 0" style="margin:0 auto;" [diameter]="30"></mat-spinner>
+
+<mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
   <ng-container *ngFor="let column of displayedColumns;" matColumnDef="{{ column }}">
     <div *ngIf="column != 'select'">
       <mat-header-cell *matHeaderCellDef>{{ column.toLocaleUpperCase() }}</mat-header-cell>
