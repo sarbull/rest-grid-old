@@ -17,11 +17,6 @@ export class RestGridComponent implements OnInit {
   @Input() dataObservable: Observable<any>;
   @Input() selection: SelectionModel<any>;
 
-  constructor() {
-    console.log('dataSource = ', this.dataSource.data.length);
-    console.log('displayedColumns = ', this.displayedColumns.length);
-  }
-
   ngOnInit() {
     this.dataObservable.subscribe((data: any) => {
       if (data.length) {
@@ -29,8 +24,6 @@ export class RestGridComponent implements OnInit {
           this.dataSource.data.push(e);
         });
       }
-
-      console.log('dataSource on Observable', this.dataSource.data.length);
     });
 
     this.gridOptions.subscribe((g: GridOptions) => {
@@ -39,8 +32,6 @@ export class RestGridComponent implements OnInit {
           return c.name;
         }));
       }
-
-      console.log('displayedColumns on Observable', this.displayedColumns.length);
     });
   }
 
