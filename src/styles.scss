@@ -3,12 +3,29 @@
 @include mat-core();
 
 $candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-$candy-app-warn:    mat-palette($mat-red);
-$candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 
 @include angular-material-theme($candy-app-theme);
 
 mat-cell.mat-cell, mat-header-cell.mat-header-cell {
   overflow: visible;
+}
+
+.mat-table.rest-grid {
+  .mat-header-cell {
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .mat-icon {
+    height: 14px;
+    width: 14px;
+
+    &.material-icons {
+      font-size: 14px;
+    }
+  }
 }
