@@ -31,4 +31,25 @@ export class RestGridService {
 
     this.sorters.set(key, data);
   }
+
+  getUrl(): String {
+    let url = '?';
+    const urlSorters = this.getUrlSorters();
+
+    url = `${url}${urlSorters}`;
+
+    return url;
+  }
+
+  getUrlSorters(): String {
+    const ascendings = this.sorters.get('asc').map((e) => {
+      return `asc.${e}`;
+    }).join();
+
+    const descendings = this.sorters.get('desc').map((e) => {
+      return `desc.${e}`;
+    }).join();
+
+    return `sort=${ascendings},${descendings}`;
+  }
 }
