@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RestGridComponent } from './rest-grid.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RestGridComponent} from './rest-grid.component';
 import {
   MatCheckboxModule,
   MatProgressSpinnerModule,
@@ -8,6 +8,8 @@ import {
   MatIconModule,
   MatTableModule
 } from '@angular/material';
+
+import {RestGridService} from './rest-grid.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,10 @@ import {
   ],
   exports: [
     RestGridComponent
+  ],
+  providers: [
+    RestGridService
   ]
 })
-export class RestGridModule {}
+export class RestGridModule {
+}
