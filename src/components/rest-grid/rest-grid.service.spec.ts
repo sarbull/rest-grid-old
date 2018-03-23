@@ -15,6 +15,15 @@ describe('AppComponent', () => {
     ]);
   });
 
+  it('should not add two identical asc column sorters', () => {
+    service.addSorter('asc', 'column1');
+    service.addSorter('asc', 'column1');
+
+    expect(service.sorters.get('asc')).toEqual([
+      'column1'
+    ]);
+  });
+
   it('should add four asc column sorters and remove one', () => {
     service.addSorter('asc', 'column1');
     service.addSorter('asc', 'column2');
@@ -37,6 +46,23 @@ describe('AppComponent', () => {
 
     expect(service.sorters.get('desc')).toEqual([
       'column1'
+    ]);
+  });
+
+  it('should add four desc column sorters and remove one', () => {
+    service.addSorter('desc', 'column1');
+    service.addSorter('desc', 'column2');
+    service.addSorter('desc', 'column3');
+    service.addSorter('desc', 'column4');
+
+    service.removeSorter('desc', 'column1');
+
+    expect(service.sorters.get('desc').length).toBe(3);
+
+    expect(service.sorters.get('desc')).toEqual([
+      'column2',
+      'column3',
+      'column4'
     ]);
   });
 

@@ -13,9 +13,12 @@ export class RestGridService {
   addSorter(key: String, value: String): void {
     const data = this.sorters.get(key);
 
-    data.push(value);
+    // check if value is in array
+    if (data.indexOf(value)) {
+      data.push(value);
 
-    this.sorters.set(key, data);
+      this.sorters.set(key, data);
+    }
   }
 
   // removeSorter('asc', 'column1');
