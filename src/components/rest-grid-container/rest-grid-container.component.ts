@@ -10,13 +10,10 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: 'rest-grid-container.component.html',
 })
 export class RestGridContainerComponent implements OnInit {
-  selection = new SelectionModel<ElementInterface>(true, []);
-
   gridOptions: Observable<GridOptions> = new Observable<GridOptions>();
   dataObservable: Observable<ElementInterface[]> = new Observable<ElementInterface[]>();
 
-  constructor(private _restGridContainerService: RestGridContainerService) {
-  }
+  constructor(private _restGridContainerService: RestGridContainerService) {}
 
   ngOnInit() {
     this.dataObservable = this._restGridContainerService.getElements();

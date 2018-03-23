@@ -100,4 +100,35 @@ describe('AppComponent', () => {
 
     expect(service.getUrlSorters()).toEqual('sort=asc.column1,asc.column3,desc.column2,desc.column4');
   });
+
+
+  it('should work', () => {
+    service.addFilter('column1', '>', 3);
+    service.addFilter('column1', '>', 6);
+
+    expect(service.filters.get('filters')).toEqual({
+      'column1': {
+        '>': 6
+      }
+    });
+  });
+
+  it('should work again', () => {
+    service.addFilter('column1', '>', 3);
+    service.removeFilter('column1', '>');
+
+    expect(service.filters.get('filters')).toEqual({});
+  });
+
+  it('should work again', () => {
+    service.addFilter('column1', '>', 3);
+    service.addFilter('column1', '<', 5);
+    service.removeFilter('column1', '>');
+
+    expect(service.filters.get('filters')).toEqual({
+      'column1': {
+        '<': 5
+      }
+    });
+  });
 });

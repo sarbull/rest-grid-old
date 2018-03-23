@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
 import {GridOptions} from './grid-options.interface';
 import {Observable} from 'rxjs/Observable';
-import { Definition } from './grid-options.interface';
+import {Column, ColumnInterface} from './grid-options.interface';
 
 @Component({
   selector: 'app-rest-grid',
@@ -15,9 +14,10 @@ export class RestGridComponent implements OnInit {
 
   @Input() gridOptions: Observable<GridOptions>;
   @Input() dataObservable: Observable<any>;
-  @Input() selection: SelectionModel<any>;
 
   ngOnInit() {
+    const select: ColumnInterface = new Column('select', 'void', false, false);
+
     this.dataObservable.subscribe((data: any) => {
       if (data.length) {
         data.forEach((e) => {
@@ -28,7 +28,7 @@ export class RestGridComponent implements OnInit {
 
     this.gridOptions.subscribe((g: GridOptions) => {
       if (g) {
-        this.displayedColumns = this.displayedColumns.concat(['select'], g.columns.map((c: Definition) => {
+        this.displayedColumns = this.displayedColumns.concat([select.name], g.columns.map((c: Column) => {
           return c.name;
         }));
       }
@@ -38,17 +38,5 @@ export class RestGridComponent implements OnInit {
   dataIsReady(): boolean {
     return this.dataSource.data.length > 0 &&
       this.displayedColumns.length > 0;
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }

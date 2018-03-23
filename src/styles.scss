@@ -16,7 +16,7 @@ mat-cell.mat-cell, mat-header-cell.mat-header-cell {
 .mat-table.rest-grid {
   .mat-header-cell {
     &:hover {
-      cursor: default;
+      cursor: pointer;
     }
   }
 
