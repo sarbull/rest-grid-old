@@ -42,14 +42,14 @@ export class RestGridService {
   }
 
   getUrlSorters(): String {
-    const ascendings = this.sorters.get('asc').map((e) => {
+    const ascending = this.sorters.get('asc').map((e) => {
       return `asc.${e}`;
     }).join();
 
-    const descendings = this.sorters.get('desc').map((e) => {
+    const descending = this.sorters.get('desc').map((e) => {
       return `desc.${e}`;
     }).join();
 
-    return `sort=${ascendings},${descendings}`;
+    return `sort=${ascending},${descending}`;
   }
 }
