@@ -16,8 +16,6 @@ export class RestGridComponent implements OnInit {
   @Input() dataObservable: Observable<any>;
 
   ngOnInit() {
-    const select: ColumnInterface = new Column('select', 'void', false, false);
-
     this.dataObservable.subscribe((data: any) => {
       if (data.length) {
         data.forEach((e) => {
@@ -28,7 +26,7 @@ export class RestGridComponent implements OnInit {
 
     this.gridOptions.subscribe((g: GridOptions) => {
       if (g) {
-        this.displayedColumns = this.displayedColumns.concat([select.name], g.columns.map((c: Column) => {
+        this.displayedColumns = this.displayedColumns.concat(g.columns.map((c: Column) => {
           return c.name;
         }));
       }
