@@ -98,6 +98,6 @@ describe('AppComponent', () => {
     service.addSorter('asc', 'column3');
     service.addSorter('desc', 'column4');
 
-    expect(service.getUrlSorters('')).toEqual('sort=asc.column1,asc.column3,desc.column2,desc.column4');
+    expect(service.getUrlSorters()).toEqual('sort=asc.column1,asc.column3,desc.column2,desc.column4');
   });
 });
