@@ -1,6 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  MatPaginator,
+  MatTableDataSource
+} from '@angular/material';
 import {merge} from 'rxjs/observable/merge';
 import {of as observableOf} from 'rxjs/observable/of';
 import {catchError} from 'rxjs/operators/catchError';
@@ -14,44 +20,30 @@ import {DataDao} from './dao/data.dao';
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {
-  displayedColumns = [
+  displayedColumns: string[] = [
     'position',
     'name',
     'weight',
     'symbol'
   ];
 
-  dataSource = new MatTableDataSource();
-
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   resultsLength = 0;
-
   isLoadingResults = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private http: HttpClient, private database: DataDao) {
-  }
+  constructor(private database: DataDao) {}
 
   ngOnInit() {
-    this.sort.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 0;
-
-      this.paginator.pageSize = 5;
-    });
-
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
 
           return this.database.getData(
-            this.sort.active,
-            this.sort.direction,
-            this.paginator.pageIndex,
-            this.paginator.pageSize
+            this.paginator.pageIndex
           );
         }),
         map(data => {

@@ -4,30 +4,29 @@
 
 <rg-string-filter></rg-string-filter>
 
-<h2>asdasda</h2>
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner></mat-spinner>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" class="example-table" matSort>
+  <mat-table #table [dataSource]="dataSource" class="example-table">
     <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="position">Position</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
       <mat-cell *matCellDef="let row;">{{ row.position }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
       <mat-cell *matCellDef="let row;">{{ row.name }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="state">State</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
       <mat-cell *matCellDef="let row;">{{ row.weight }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="symbol">Symbol</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
       <mat-cell *matCellDef="let row;">{{ row.symbol }}</mat-cell>
     </ng-container>
 

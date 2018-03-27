@@ -19,6 +19,6 @@ export class Column implements ColumnInterface {
   }
 }
 
-export interface GridOptions {
+export interface GridOptionsInterface {
   columns: ColumnInterface[];
 }
