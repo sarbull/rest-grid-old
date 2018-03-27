@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
 import {merge} from 'rxjs/observable/merge';
 import {of as observableOf} from 'rxjs/observable/of';
 import {catchError} from 'rxjs/operators/catchError';
@@ -11,7 +10,7 @@ import {switchMap} from 'rxjs/operators/switchMap';
 import {DataDao} from './dao/data.dao';
 
 @Component({
-  selector: 'app-rest-grid',
+  selector: 'rg-rest-grid',
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {

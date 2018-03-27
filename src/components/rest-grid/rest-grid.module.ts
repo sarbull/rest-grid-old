@@ -21,6 +21,8 @@ import {DataDao} from './dao/data.dao';
 import {NumberFilter} from './filters/number/number.filter';
 import {DateFilter} from './filters/date/date.filter';
 import {StringFilter} from './filters/string/string.filter';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import {StringFilter} from './filters/string/string.filter';
     MatPaginatorModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   exports: [
     RestGridComponent
