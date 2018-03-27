@@ -10,14 +10,14 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: 'rest-grid-container.component.html',
 })
 export class RestGridContainerComponent implements OnInit {
-  gridOptions: Observable<GridOptions> = new Observable<GridOptions>();
-  dataObservable: Observable<ElementInterface[]> = new Observable<ElementInterface[]>();
+  // gridOptions: Observable<GridOptions> = new Observable<GridOptions>();
+  // dataObservable: Observable<ElementInterface[]> = new Observable<ElementInterface[]>();
 
   constructor(private _restGridContainerService: RestGridContainerService) {}
 
   ngOnInit() {
-    this.dataObservable = this._restGridContainerService.getElements();
+    // this.dataObservable = this._restGridContainerService.getElements();
 
-    this.gridOptions = this._restGridContainerService.getGridOptions();
+    // this.gridOptions = this._restGridContainerService.getGridOptions();
   }
 }

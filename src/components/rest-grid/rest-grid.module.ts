@@ -6,28 +6,50 @@ import {
   MatProgressSpinnerModule,
   MatMenuModule,
   MatIconModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatInputModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MAT_DATE_LOCALE
 } from '@angular/material';
 
 import {RestGridService} from './rest-grid.service';
+import {DataDao} from './dao/data.dao';
+import {NumberFilter} from './filters/number/number.filter';
+import {DateFilter} from './filters/date/date.filter';
+import {StringFilter} from './filters/string/string.filter';
 
 @NgModule({
   declarations: [
-    RestGridComponent
+    RestGridComponent,
+    NumberFilter,
+    DateFilter,
+    StringFilter
   ],
   imports: [
+    MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
     MatCheckboxModule,
     MatMenuModule,
     MatIconModule,
+    MatSortModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     CommonModule
   ],
   exports: [
     RestGridComponent
   ],
   providers: [
-    RestGridService
+    RestGridService,
+    DataDao,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
   ]
 })
 export class RestGridModule {

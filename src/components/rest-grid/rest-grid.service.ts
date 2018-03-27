@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 export class RestGridService {
   filters: Map<String, Object> = new Map<String, Object>();
   sorters: Map<String, Array<String>> = new Map<String, Array<String>>();
+  url: String;
 
   constructor() {
     this.filters.set('filters', []);
@@ -40,7 +41,7 @@ export class RestGridService {
 
     delete data[column][comparator];
 
-    if ( Object.keys(data[column]).length === 0 ) {
+    if (Object.keys(data[column]).length === 0) {
       delete data[column];
     }
 

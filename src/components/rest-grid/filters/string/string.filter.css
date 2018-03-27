@@ -1,0 +1,11 @@
+mat-form-field.mat-form-field {
+  font-size: 12px;
+  max-width: 100px;
+}
+
+.rg-column {
+  padding:10px;
+  display: inline-flex;
+  flex-flow: row wrap;
+  flex-direction: column;
+}

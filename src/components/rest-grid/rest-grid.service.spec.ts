@@ -131,5 +131,11 @@ describe('AppComponent', () => {
         '<': 5
       }
     });
+
+    // it('should have an initial endpoit', () => {
+    //   service.setUrl('/api/test');
+    //
+    //   expect(service.getUrl()).toBe('/api/test');
+    // });
   });
 });

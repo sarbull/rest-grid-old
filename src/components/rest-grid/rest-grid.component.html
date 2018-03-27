@@ -1,16 +1,39 @@
-<mat-spinner *ngIf="!dataIsReady()" [diameter]="30"></mat-spinner>
+<rg-number-filter></rg-number-filter>
 
-<mat-table class="rest-grid" *ngIf="dataIsReady()" #table [dataSource]="dataSource">
-  <ng-container *ngFor="let column of columns;" matColumnDef="{{ column }}">
-    <mat-header-cell *matHeaderCellDef>
-      {{ column.toLocaleUpperCase() }}
-    </mat-header-cell>
+<rg-date-filter></rg-date-filter>
 
-    <mat-cell *matCellDef="let element;">
-      {{ element[column] }}
-    </mat-cell>
-  </ng-container>
+<rg-string-filter></rg-string-filter>
 
-  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
-</mat-table>
+<h2>asdasda</h2>
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" class="example-table" matSort>
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef mat-sort-header="position">Position</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{ row.position }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{ row.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef mat-sort-header="state">State</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{ row.weight }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef mat-sort-header="symbol">Symbol</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{ row.symbol }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

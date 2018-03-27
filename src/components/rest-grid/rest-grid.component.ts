@@ -1,40 +1,72 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
-import {GridOptions} from './grid-options.interface';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
-import {Column, ColumnInterface} from './grid-options.interface';
+import {merge} from 'rxjs/observable/merge';
+import {of as observableOf} from 'rxjs/observable/of';
+import {catchError} from 'rxjs/operators/catchError';
+import {map} from 'rxjs/operators/map';
+import {startWith} from 'rxjs/operators/startWith';
+import {switchMap} from 'rxjs/operators/switchMap';
+import {DataDao} from './dao/data.dao';
 
 @Component({
   selector: 'app-rest-grid',
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {
-  columns: Array<String> = [];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  displayedColumns = [
+    'position',
+    'name',
+    'weight',
+    'symbol'
+  ];
 
-  @Input() gridOptions: Observable<GridOptions>;
-  @Input() dataObservable: Observable<any>;
+  dataSource = new MatTableDataSource();
 
-  ngOnInit() {
-    this.dataObservable.subscribe((data: any) => {
-      if (data.length) {
-        data.forEach((e) => {
-          this.dataSource.data.push(e);
-        });
-      }
-    });
+  resultsLength = 0;
 
-    this.gridOptions.subscribe((g: GridOptions) => {
-      if (g) {
-        this.columns = this.columns.concat(g.columns.map((c: Column) => {
-          return c.name;
-        }));
-      }
-    });
+  isLoadingResults = true;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private http: HttpClient, private database: DataDao) {
   }
 
-  dataIsReady(): boolean {
-    return this.dataSource.data.length > 0 &&
-      this.columns.length > 0;
+  ngOnInit() {
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+
+      this.paginator.pageSize = 5;
+    });
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+
+          return this.database.getData(
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize
+          );
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+
+          this.resultsLength = data.totalCount;
+
+          return data.items;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+
+          return observableOf([]);
+        })
+      ).subscribe(data => this.dataSource.data = data);
   }
 }
