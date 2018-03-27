@@ -9,7 +9,7 @@ import {Column, ColumnInterface} from './grid-options.interface';
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {
-  displayedColumns: Array<String> = [];
+  columns: Array<String> = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @Input() gridOptions: Observable<GridOptions>;
@@ -26,7 +26,7 @@ export class RestGridComponent implements OnInit {
 
     this.gridOptions.subscribe((g: GridOptions) => {
       if (g) {
-        this.displayedColumns = this.displayedColumns.concat(g.columns.map((c: Column) => {
+        this.columns = this.columns.concat(g.columns.map((c: Column) => {
           return c.name;
         }));
       }
@@ -35,6 +35,6 @@ export class RestGridComponent implements OnInit {
 
   dataIsReady(): boolean {
     return this.dataSource.data.length > 0 &&
-      this.displayedColumns.length > 0;
+      this.columns.length > 0;
   }
 }

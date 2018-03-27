@@ -113,15 +113,16 @@ describe('AppComponent', () => {
     });
   });
 
-  it('should work again', () => {
+  it('should add and remove a filter for a column', () => {
     service.addFilter('column1', '>', 3);
     service.removeFilter('column1', '>');
 
     expect(service.filters.get('filters')).toEqual({});
   });
 
-  it('should work again', () => {
+  it('should add three filters and remove one', () => {
     service.addFilter('column1', '>', 3);
+    service.addFilter('column1', '>', 4);
     service.addFilter('column1', '<', 5);
     service.removeFilter('column1', '>');
 
