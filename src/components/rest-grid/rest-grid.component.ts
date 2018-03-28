@@ -9,14 +9,12 @@ import {
   MatTableDataSource
 } from '@angular/material';
 import {merge} from 'rxjs/observable/merge';
-import {zip} from 'rxjs/observable/zip';
-import {of as observableOf} from 'rxjs/observable/of';
-import {catchError} from 'rxjs/operators/catchError';
+import {combineLatest} from 'rxjs/observable/combineLatest';
 import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {RestGridDataService} from './rest-grid-data.service';
-import {DataModelInterface} from './options/grid-options.interface';
+import {DataModelInterface, GridOptionsInterface} from './options/grid-options.interface';
 
 @Component({
   selector: 'rg-rest-grid',
@@ -37,42 +35,30 @@ export class RestGridComponent implements OnInit {
   ngOnInit() {
     this.restGridDataService.setUrl(this.endpoint);
 
-    zip(
-      this.restGridDataService.getGridOptions(),
-      this.restGridDataService.getElements(),
-      (gridOptions: any, elements: any) => ({gridOptions, elements})
-    ).subscribe(data => {
-      this.displayedColumns = data.gridOptions.columns.map((e) => e.name);
-      this.dataSource.data = data.elements.items;
-      this.resultsLength = data.elements.totalCount;
-      this.isLoadingResults = false;
-    });
+    const options = this.restGridDataService.getGridOptions();
 
-    merge(this.paginator.page)
+    const elements = merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.isLoadingResults = true;
-
           return this.restGridDataService.queryElements(
             this.paginator.pageIndex,
             this.paginator.pageSize
           );
         }),
         map(data => {
-          this.isLoadingResults = false;
-          this.resultsLength = data.totalCount;
-
-          return data.items;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-
-          return observableOf([]);
+          return data;
         })
-      )
-      .subscribe(data => {
-        this.dataSource.data = data;
-      });
+      );
+
+    combineLatest(
+      options,
+      elements
+    ).subscribe((data) => {
+      this.displayedColumns = data[0].columns.map((e) => e.name);
+      this.dataSource.data = data[1].items;
+      this.resultsLength = data[1].totalCount;
+      this.isLoadingResults = false;
+    });
   }
 }
