@@ -17,7 +17,6 @@ import {
 } from '@angular/material';
 
 import {RestGridService} from './rest-grid.service';
-import {DataDao} from './dao/data.dao';
 import {NumberFilter} from './filters/number/number.filter';
 import {DateFilter} from './filters/date/date.filter';
 import {StringFilter} from './filters/string/string.filter';
@@ -54,7 +53,6 @@ import {RestGridDataService} from './rest-grid-data.service';
   providers: [
     RestGridService,
     RestGridDataService,
-    DataDao,
     {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
   ]
 })

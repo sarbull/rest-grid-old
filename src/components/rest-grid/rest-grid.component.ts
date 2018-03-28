@@ -15,7 +15,6 @@ import {catchError} from 'rxjs/operators/catchError';
 import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
-import {DataDao} from './dao/data.dao';
 import {RestGridDataService} from './rest-grid-data.service';
 import {DataModelInterface} from './options/grid-options.interface';
 
@@ -24,34 +23,28 @@ import {DataModelInterface} from './options/grid-options.interface';
   templateUrl: 'rest-grid.component.html',
 })
 export class RestGridComponent implements OnInit {
-  @Input() endpoint: String;
-
-  displayedColumns: String[] = [
-    // 'position',
-    // 'name',
-    // 'weight',
-    // 'symbol'
-  ];
-
-  dataSource: MatTableDataSource<DataModelInterface> = new MatTableDataSource<DataModelInterface>();
   resultsLength = 0;
   isLoadingResults = true;
-
+  @Input() endpoint: string;
+  displayedColumns: String[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<DataModelInterface> = new MatTableDataSource<DataModelInterface>();
 
-  constructor(private database: DataDao, private restGridDataService: RestGridDataService) {}
+
+  constructor(private restGridDataService: RestGridDataService) {
+  }
 
   ngOnInit() {
     this.restGridDataService.setUrl(this.endpoint);
 
     zip(
+      this.restGridDataService.getGridOptions(),
       this.restGridDataService.getElements(),
-      this.restGridDataService.getGridOptions()
-    ).subscribe((data) => {
-      this.resultsLength = data[0].totalCount;
-      this.dataSource.data = data[0].items;
-      this.displayedColumns = data[1].columns.map(e => e.name);
-
+      (gridOptions: any, elements: any) => ({gridOptions, elements})
+    ).subscribe(data => {
+      this.displayedColumns = data.gridOptions.columns.map((e) => e.name);
+      this.dataSource.data = data.elements.items;
+      this.resultsLength = data.elements.totalCount;
       this.isLoadingResults = false;
     });
 
@@ -61,14 +54,13 @@ export class RestGridComponent implements OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
 
-          return this.database.getData(
+          return this.restGridDataService.queryElements(
             this.paginator.pageIndex,
             this.paginator.pageSize
           );
         }),
         map(data => {
           this.isLoadingResults = false;
-
           this.resultsLength = data.totalCount;
 
           return data.items;
@@ -78,6 +70,9 @@ export class RestGridComponent implements OnInit {
 
           return observableOf([]);
         })
-      ).subscribe(data => this.dataSource.data = data);
+      )
+      .subscribe(data => {
+        this.dataSource.data = data;
+      });
   }
 }

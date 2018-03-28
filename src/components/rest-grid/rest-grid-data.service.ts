@@ -7,42 +7,55 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-
 @Injectable()
 export class RestGridDataService {
-  gridOptions: Observable<GridOptionsInterface> = null;
-  elements: Observable<DataModelInterface> = null;
-
-  url: String;
+  query: Map<String, Object> = new Map<String, Object>();
+  url: string;
 
   constructor(private http: HttpClient) {
   }
 
-  setUrl(url: String): void {
+  setUrl(url: string): void {
     this.url = url;
   }
 
-  getUrl(): String {
-    return this.url;
-  }
+  getUrl(): string {
+    const query = [];
+    let url = this.url;
 
-  getElements(): Observable<DataModelInterface> {
-    if (!this.elements) {
-      this.elements = this.http.get(`${this.url}`).map((response: any) => {
-        return response;
-      });
+    this.query.forEach((value, key) => {
+      if (value) {
+        query.push(`${key}=${value}`);
+      }
+    });
+
+    if (query.length) {
+      url = `${url}?${query.join('&')}`;
     }
 
-    return this.elements;
+    return url;
+  }
+
+  queryElements(currentPage: number, itemsPerPage: number): Observable<DataModelInterface> {
+    this.query.set('currentPage', currentPage + 1);
+    this.query.set('itemsPerPage', itemsPerPage);
+
+    return this.getElements(this.getUrl());
+  }
+
+  getElements(url?: string): Observable<DataModelInterface> {
+    let endpoint = '';
+
+    if (url) {
+      endpoint = url;
+    } else {
+      endpoint = this.getUrl();
+    }
+
+    return this.http.get<DataModelInterface>(endpoint);
   }
 
   getGridOptions(): Observable<GridOptionsInterface> {
-    if (!this.gridOptions) {
-      this.gridOptions = this.http.get(`${this.url}/options`).map((response: GridOptionsInterface) => {
-        return response;
-      });
-    }
-
-    return this.gridOptions;
+    return this.http.get<GridOptionsInterface>(`${this.url}/options`);
   }
 }
