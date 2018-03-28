@@ -2,7 +2,7 @@ import {RestGridDataService} from './rest-grid-data.service';
 import {TestBed} from '@angular/core/testing';
 import {HttpClientModule} from '@angular/common/http';
 
-describe('AppComponent', () => {
+describe('RestGridDataService', () => {
   let service;
 
   beforeEach(() => {

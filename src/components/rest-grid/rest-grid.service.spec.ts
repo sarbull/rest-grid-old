@@ -1,6 +1,6 @@
 import { RestGridService } from './rest-grid.service';
 
-describe('AppComponent', () => {
+describe('RestGridService', () => {
   let service;
 
   beforeEach(() => {
@@ -102,7 +102,7 @@ describe('AppComponent', () => {
   });
 
 
-  it('should work', () => {
+  it('should update filter with new value', () => {
     service.addFilter('column1', '>', 3);
     service.addFilter('column1', '>', 6);
 
@@ -131,11 +131,5 @@ describe('AppComponent', () => {
         '<': 5
       }
     });
-
-    // it('should have an initial endpoit', () => {
-    //   service.setUrl('/api/test');
-    //
-    //   expect(service.getUrl()).toBe('/api/test');
-    // });
   });
 });
