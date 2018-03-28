@@ -40,19 +40,11 @@ export class RestGridDataService {
     this.query.set('currentPage', currentPage + 1);
     this.query.set('itemsPerPage', itemsPerPage);
 
-    return this.getElements(this.getUrl());
+    return this.getElements();
   }
 
-  getElements(url?: string): Observable<DataModelInterface> {
-    let endpoint = '';
-
-    if (url) {
-      endpoint = url;
-    } else {
-      endpoint = this.getUrl();
-    }
-
-    return this.http.get<DataModelInterface>(endpoint);
+  getElements(): Observable<DataModelInterface> {
+    return this.http.get<DataModelInterface>(this.getUrl());
   }
 
   getGridOptions(): Observable<GridOptionsInterface> {
