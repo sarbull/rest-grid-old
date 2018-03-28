@@ -12,7 +12,7 @@ import 'rxjs/add/operator/concat';
 
 @Injectable()
 export class RestGridDataService {
-  query: Map<String, Object> = new Map<String, Object>();
+  query: Map<String, any> = new Map<String, any>();
   url: string;
 
   constructor(private http: HttpClient) {
@@ -39,9 +39,13 @@ export class RestGridDataService {
     return url;
   }
 
+  setQueryParam(key: String, value: any): void {
+    this.query.set(key, value);
+  }
+
   queryElements(currentPage: number, itemsPerPage: number): Observable<DataModelInterface> {
-    this.query.set('currentPage', currentPage + 1);
-    this.query.set('itemsPerPage', itemsPerPage);
+    this.setQueryParam('currentPage', currentPage + 1);
+    this.setQueryParam('itemsPerPage', itemsPerPage);
 
     return this.getElements();
   }
