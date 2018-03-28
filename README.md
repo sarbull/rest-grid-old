@@ -46,3 +46,108 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 | numberComparator   | Sorting for numbers.       |
 | textComparator     | Sorting for strings.       |
 | dateComparator     | Sorting for date entities. |
+
+## Current "tree -I node_modules"
+```bash
+.
+├── README.md
+├── api
+│   ├── elements
+│   │   ├── data.json
+│   │   └── grid.json
+│   └── index.js
+├── coverage
+│   ├── base.css
+│   ├── block-navigation.js
+│   ├── index.html
+│   ├── lcov.info
+│   ├── prettify.css
+│   ├── prettify.js
+│   ├── sort-arrow-sprite.png
+│   ├── sorter.js
+│   └── src
+│       ├── components
+│       │   ├── app
+│       │   │   ├── app.component.ts.html
+│       │   │   ├── app.module.ts.html
+│       │   │   └── index.html
+│       │   └── rest-grid
+│       │       ├── filters
+│       │       │   ├── date
+│       │       │   │   ├── date.filter.ts.html
+│       │       │   │   └── index.html
+│       │       │   ├── number
+│       │       │   │   ├── index.html
+│       │       │   │   └── number.filter.ts.html
+│       │       │   └── string
+│       │       │       ├── index.html
+│       │       │       └── string.filter.ts.html
+│       │       ├── index.html
+│       │       ├── rest-grid-data.service.ts.html
+│       │       ├── rest-grid.component.ts.html
+│       │       ├── rest-grid.module.ts.html
+│       │       └── rest-grid.service.ts.html
+│       ├── index.html
+│       ├── polyfills.ts.html
+│       └── test.ts.html
+├── docs
+│   ├── CNAME
+│   └── index.html
+├── e2e
+│   ├── app.e2e-spec.ts
+│   ├── app.po.ts
+│   └── tsconfig.e2e.json
+├── karma.conf.js
+├── package-lock.json
+├── package.json
+├── protractor.conf.js
+├── proxy.conf.json
+├── src
+│   ├── assets
+│   ├── components
+│   │   ├── app
+│   │   │   ├── app.component.html
+│   │   │   ├── app.component.spec.ts
+│   │   │   ├── app.component.ts
+│   │   │   └── app.module.ts
+│   │   └── rest-grid
+│   │       ├── filters
+│   │       │   ├── date
+│   │       │   │   ├── date.filter.css
+│   │       │   │   ├── date.filter.html
+│   │       │   │   └── date.filter.ts
+│   │       │   ├── number
+│   │       │   │   ├── number.filter.css
+│   │       │   │   ├── number.filter.html
+│   │       │   │   └── number.filter.ts
+│   │       │   └── string
+│   │       │       ├── string.filter.css
+│   │       │       ├── string.filter.html
+│   │       │       └── string.filter.ts
+│   │       ├── options
+│   │       │   └── grid-options.interface.ts
+│   │       ├── rest-grid-data.service.spec.ts
+│   │       ├── rest-grid-data.service.ts
+│   │       ├── rest-grid.component.html
+│   │       ├── rest-grid.component.ts
+│   │       ├── rest-grid.module.ts
+│   │       ├── rest-grid.service.spec.ts
+│   │       └── rest-grid.service.ts
+│   ├── environments
+│   │   ├── environment.prod.ts
+│   │   └── environment.ts
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── styles.scss
+│   ├── test.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.spec.json
+│   └── typings.d.ts
+├── tree.md
+├── tsconfig.json
+└── tslint.json
+
+24 directories, 74 files
+```
