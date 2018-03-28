@@ -20,30 +20,23 @@ const projects = {
 };
 
 app.get('/api/elements', (req, res) => {
+  let response = {
+    items: [],
+    totalCount: projects.data.items.length,
+    itemsPerPage: parseInt(req.param('itemsPerPage')) || 10,
+    currentPage: parseInt(req.param('currentPage')) || 1
+  };
+
+  response.items = projects.data.items.slice(((response.currentPage-1)*response.itemsPerPage),
+    ((response.currentPage)*response.itemsPerPage));
+
   setTimeout(() => {
-    let page = 0;
-    let pageSize;
-
-    if(req.params.pageSize) {
-      pageSize = req.params.pageSize;
-    } else {
-      pageSize = 10;
-    }
-
-    if(req.params.page) {
-      page = req.params.page;
-    }
-
-    projects.data.pageSize = pageSize;
-    projects.data.page = page;
-    projects.data.totalCount = projects.data.items.length;
-
-    res.send(projects.data)
+    res.send(response)
   }, 2000);
 });
 
 
-app.get('/api/elements/grid', (req, res) => {
+app.get('/api/elements/options', (req, res) => {
   setTimeout(() => res.send(projects.grid), 3000);
 });
 

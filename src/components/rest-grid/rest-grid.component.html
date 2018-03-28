@@ -1,8 +1,8 @@
-<rg-number-filter></rg-number-filter>
+<!--<rg-number-filter></rg-number-filter>-->
 
-<rg-date-filter></rg-date-filter>
+<!--<rg-date-filter></rg-date-filter>-->
 
-<rg-string-filter></rg-string-filter>
+<!--<rg-string-filter></rg-string-filter>-->
 
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults">
@@ -10,24 +10,14 @@
   </div>
 
   <mat-table #table [dataSource]="dataSource" class="example-table">
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
-      <mat-cell *matCellDef="let row;">{{ row.position }}</mat-cell>
-    </ng-container>
+    <ng-container *ngFor="let column of displayedColumns;" matColumnDef="{{ column }}">
+      <mat-header-cell *matHeaderCellDef>
+        {{ column.toLocaleUpperCase() }}
+      </mat-header-cell>
 
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let row;">{{ row.name }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-      <mat-cell *matCellDef="let row;">{{ row.weight }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
-      <mat-cell *matCellDef="let row;">{{ row.symbol }}</mat-cell>
+      <mat-cell *matCellDef="let row;">
+        {{ row[column] }}
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

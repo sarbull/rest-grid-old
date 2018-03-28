@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'rg-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {}
+export class AppComponent {
+  endpoint: String = '/api/elements';
+}

@@ -6,8 +6,12 @@ import {Injectable} from '@angular/core';
 export class DataDao {
   constructor(private http: HttpClient) {}
 
-  getData(page: number): Observable<any> {
-    const href = `/api/elements?page=${page + 1}`;
+  getData(page: number, pageSize: number): Observable<any> {
+    let href = `/api/elements?currentPage=${page + 1}`;
+
+    if(pageSize) {
+      href = `${href}&itemsPerPage=${pageSize}`;
+    }
 
     return this.http.get<any>(href);
   }

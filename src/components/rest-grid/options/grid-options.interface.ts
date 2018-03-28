@@ -22,3 +22,8 @@ export class Column implements ColumnInterface {
 export interface GridOptionsInterface {
   columns: ColumnInterface[];
 }
+
+export interface DataModelInterface {
+  totalCount: number;
+  items: any[];
+}

@@ -1,32 +1,35 @@
 import {Injectable} from '@angular/core';
 import {
-  ColumnInterface,
-  GridOptionsInterface
+  GridOptionsInterface,
+  DataModelInterface
 } from './options/grid-options.interface';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+
 @Injectable()
 export class RestGridDataService {
   gridOptions: Observable<GridOptionsInterface> = null;
-  elements: Observable<ColumnInterface[]> = null;
+  elements: Observable<DataModelInterface> = null;
 
-  url: '/api/elements';
+  url: String;
 
   constructor(private http: HttpClient) {
   }
 
-  getElements(): Observable<ColumnInterface[]> {
+  setUrl(url: String): void {
+    this.url = url;
+  }
+
+  getUrl(): String {
+    return this.url;
+  }
+
+  getElements(): Observable<DataModelInterface> {
     if (!this.elements) {
-      this.elements = this.http.get(`${this.url}`).map((response: ColumnInterface[]) => {
-        const elements: ColumnInterface[] = [];
-
-        response.forEach((e: ColumnInterface) => {
-          elements.push(e);
-        });
-
-        return elements;
+      this.elements = this.http.get(`${this.url}`).map((response: any) => {
+        return response;
       });
     }
 
