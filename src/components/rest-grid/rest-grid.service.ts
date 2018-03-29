@@ -82,12 +82,30 @@ export class RestGridService {
   getUrlSorters(): String {
     const ascending = this.sorters.get('asc').map((e) => {
       return `asc.${e}`;
-    }).join();
+    });
 
     const descending = this.sorters.get('desc').map((e) => {
       return `desc.${e}`;
-    }).join();
+    });
 
-    return `sort=${ascending},${descending}`;
+    return `sort=${ascending.concat(descending).join()}`;
+  }
+
+  // filter=column1>5,column1<7
+  getUrlFilters(): String {
+    const url = 'filter=';
+    const flatQueryParams = [];
+
+    const filters: Object = this.filters.get('filters');
+
+    Object.keys(filters).forEach((column) => {
+      Object.keys(filters[column]).forEach((comparator) => {
+        const value = filters[column][comparator];
+
+        flatQueryParams.push(`${column}${comparator}${value}`);
+      });
+    });
+
+    return `${url}${flatQueryParams.join()}`;
   }
 }

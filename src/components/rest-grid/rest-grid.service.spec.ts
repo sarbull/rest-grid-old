@@ -132,4 +132,22 @@ describe('RestGridService', () => {
       }
     });
   });
+
+  it('should retrieve the proper urlFilters', () => {
+    service.addFilter('column1', '>', 3);
+    service.addFilter('column1', '<', 5);
+
+    expect(service.getUrlFilters()).toEqual('filter=column1>3,column1<5');
+  });
+
+
+  it('should add, remove a filter and generate the proper urlFilters', () => {
+    service.addFilter('column1', '>', 3);
+    service.addFilter('column1', '<', 5);
+    service.addFilter('column2', '<', 7);
+    service.removeFilter('column1', '>');
+    service.removeFilter('column1', '<');
+
+    expect(service.getUrlFilters()).toEqual('filter=column2<7');
+  });
 });
