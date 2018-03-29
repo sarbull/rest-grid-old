@@ -16,7 +16,6 @@ import {
   MAT_DATE_LOCALE
 } from '@angular/material';
 
-import {RestGridService} from './rest-grid.service';
 import {NumberFilter} from './filters/number/number.filter';
 import {DateFilter} from './filters/date/date.filter';
 import {StringFilter} from './filters/string/string.filter';
@@ -51,7 +50,6 @@ import {RestGridDataService} from './rest-grid-data.service';
     RestGridComponent
   ],
   providers: [
-    RestGridService,
     RestGridDataService,
     {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
   ]
