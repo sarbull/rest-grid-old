@@ -12,23 +12,30 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 mat-cell.mat-cell, mat-header-cell.mat-header-cell {
   overflow: visible;
 }
-//
-//.mat-table.rest-grid {
-//  .mat-header-cell {
-//    //&:hover {
-//    //  cursor: pointer;
-//    //}
-//  }
-//
-//  .mat-icon {
-//    height: 14px;
-//    width: 14px;
-//
-//    &.material-icons {
-//      font-size: 14px;
-//    }
-//  }
-//}
+
+.mat-table.rest-grid {
+  .mat-header-cell {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .mat-icon {
+    height: 15px;
+    width: 15px;
+
+    &.material-icons {
+      font-size: 16px;
+    }
+  }
+}
 
 /* Structure */
 .example-container {

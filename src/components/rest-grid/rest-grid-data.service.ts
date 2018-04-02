@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/concat';
 
-
 @Injectable()
 export class RestGridDataService {
   filters: Map<String, Object> = new Map<String, Object>();
@@ -94,6 +93,34 @@ export class RestGridDataService {
     }
 
     this.filters.set('filters', data);
+  }
+
+  isInAsc(column: string): boolean {
+    return this.sorters.get('asc').indexOf(column) !== -1;
+  }
+
+  isInDesc(column: string): boolean {
+    return this.sorters.get('desc').indexOf(column) !== -1;
+  }
+
+  // doSort('column1'); initialise and switch asc to desc
+  doSort(column: string): void {
+    const isInAsc = this.isInAsc(column);
+    const isInDesc = this.isInDesc(column);
+
+    if (!isInAsc && !isInDesc) {
+      this.addSorter('asc', column);
+    }
+
+    if (isInAsc && !isInDesc) {
+      this.removeSorter('asc', column);
+
+      this.addSorter('desc', column);
+    } else {
+      this.removeSorter('desc', column);
+
+      this.addSorter('asc', column);
+    }
   }
 
   // addSorter('asc', 'column1');

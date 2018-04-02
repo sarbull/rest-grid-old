@@ -13,7 +13,8 @@ import {
   MatCardModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatSelectModule
 } from '@angular/material';
 
 import {NumberFilter} from './filters/number/number.filter';
@@ -42,6 +43,7 @@ import {RestGridDataService} from './rest-grid-data.service';
     MatPaginatorModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule

@@ -202,6 +202,26 @@ describe('RestGridDataService', () => {
     expect(service.getUrl()).toEqual('/api/test?currentPage=1&itemsPerPage=10&sort=asc.column1&filter=column1>3');
   });
 
+  it('should check if a column is in sorters', () => {
+    service.doSort('column1');
+
+    expect(service.isInAsc('column1')).toBe(true);
+  });
+
+  it('should switch asc desc sorter', () => {
+    service.doSort('column1');
+
+    expect(service.getUrlSorters()).toEqual('asc.column1');
+
+    service.doSort('column1');
+
+    expect(service.getUrlSorters()).toEqual('desc.column1');
+
+    service.doSort('column1');
+
+    expect(service.getUrlSorters()).toEqual('asc.column1');
+  });
+
   it('should return an Observable<GridOptionsInterface> on get grid options', () => {
     const gridOptions = {
       columns: [

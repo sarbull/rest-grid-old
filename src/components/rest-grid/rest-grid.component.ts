@@ -34,22 +34,24 @@ export class RestGridComponent implements OnInit {
 
   ngOnInit() {
     this.restGridDataService.setUrl(this.endpoint);
-
     const options = this.restGridDataService.getGridOptions();
 
-    const elements = merge(this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          return this.restGridDataService.queryElements(
-            this.paginator.pageIndex,
-            this.paginator.pageSize
-          );
-        }),
-        map(data => {
-          return data;
-        })
-      );
+    const elements = combineLatest(
+      this.paginator.page
+    ).pipe(
+      startWith({}),
+      switchMap(() => {
+        this.isLoadingResults = true;
+
+        return this.restGridDataService.queryElements(
+          this.paginator.pageIndex,
+          this.paginator.pageSize
+        );
+      }),
+      map(data => {
+        return data;
+      })
+    );
 
     combineLatest(
       options,
@@ -60,5 +62,17 @@ export class RestGridComponent implements OnInit {
       this.resultsLength = data[1].totalCount;
       this.isLoadingResults = false;
     });
+  }
+
+  doSort(column: string): void {
+    this.restGridDataService.doSort(column);
+  }
+
+  isInAsc(column: string): boolean {
+    return this.restGridDataService.isInAsc(column);
+  }
+
+  isInDesc(column: string): boolean {
+    return this.restGridDataService.isInDesc(column);
   }
 }

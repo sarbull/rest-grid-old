@@ -1,18 +1,15 @@
-<!--<rg-number-filter></rg-number-filter>-->
-
-<!--<rg-date-filter></rg-date-filter>-->
-
-<!--<rg-string-filter></rg-string-filter>-->
-
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner></mat-spinner>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" class="example-table">
+  <mat-table #table [dataSource]="dataSource" class="example-table rest-grid">
     <ng-container *ngFor="let column of displayedColumns;" matColumnDef="{{ column }}">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef (click)="doSort(column)">
         {{ column.toLocaleUpperCase() }}
+
+        <mat-icon *ngIf="isInAsc(column)">arrow_upward</mat-icon>
+        <mat-icon *ngIf="isInDesc(column)">arrow_downward</mat-icon>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row;">
