@@ -15,8 +15,6 @@ export class RestGridDataService {
   sorters: Map<String, Array<String>> = new Map<String, Array<String>>();
   query: Map<String, any> = new Map<String, any>();
   url: string;
-  pageSize: number;
-  pageIndex: number;
 
   constructor(private http: HttpClient) {
     this.filters.set('filters', []);

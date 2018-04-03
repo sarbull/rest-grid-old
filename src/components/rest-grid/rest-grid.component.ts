@@ -14,7 +14,7 @@ import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {RestGridDataService} from './rest-grid-data.service';
-import {DataModelInterface, GridOptionsInterface} from './options/grid-options.interface';
+import {DataModelInterface} from './options/grid-options.interface';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -59,8 +59,6 @@ export class RestGridComponent implements OnInit {
 
     const options = this.restGridDataService.getGridOptions();
 
-    // const elements = this.restGridDataService.getElements();
-
     combineLatest(
       options,
       merged
@@ -68,47 +66,11 @@ export class RestGridComponent implements OnInit {
     ).subscribe(data => {
       const [optionsData, mergedData] = data;
 
-      console.log(data);
-
       this.displayedColumns = optionsData.columns.map((e) => e.name);
       this.dataSource.data = mergedData.items;
       this.resultsLength = mergedData.totalCount;
       this.isLoadingResults = false;
     });
-
-
-
-
-
-
-    // const options = this.restGridDataService.getGridOptions();
-    //
-    // const elements = merge(
-    //   this.paginator.page
-    // ).pipe(
-    //   startWith({}),
-    //   switchMap(() => {
-    //     this.isLoadingResults = true;
-    //
-    //     return this.restGridDataService.queryElements(
-    //       this.paginator.pageIndex,
-    //       this.paginator.pageSize
-    //     );
-    //   }),
-    //   map(data => {
-    //     return data;
-    //   })
-    // );
-    //
-    // combineLatest(
-    //   options,
-    //   elements
-    // ).subscribe((data) => {
-    //   this.displayedColumns = data[0].columns.map((e) => e.name);
-    //   this.dataSource.data = data[1].items;
-    //   this.resultsLength = data[1].totalCount;
-    //   this.isLoadingResults = false;
-    // });
   }
 
   doSort(column: string): void {
