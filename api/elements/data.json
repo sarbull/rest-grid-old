@@ -4,121 +4,141 @@
       "position": 1,
       "name": "Hydrogen",
       "weight": 1.0079,
-      "symbol": "H"
+      "symbol": "H",
+      "createdAt": 1523779301000
     },
     {
       "position": 2,
       "name": "Helium",
       "weight": 4.0026,
-      "symbol": "He"
+      "symbol": "He",
+      "createdAt": 1523679301000
     },
     {
       "position": 3,
       "name": "Lithium",
       "weight": 6.941,
-      "symbol": "Li"
+      "symbol": "Li",
+      "createdAt": 1523579301000
     },
     {
       "position": 4,
       "name": "Beryllium",
       "weight": 9.0122,
-      "symbol": "Be"
+      "symbol": "Be",
+      "createdAt": 1523479301000
     },
     {
       "position": 5,
       "name": "Boron",
       "weight": 10.811,
-      "symbol": "B"
+      "symbol": "B",
+      "createdAt": 1523379301000
     },
     {
       "position": 6,
       "name": "Carbon",
       "weight": 12.0107,
-      "symbol": "C"
+      "symbol": "C",
+      "createdAt": 1523279301000
     },
     {
       "position": 7,
       "name": "Nitrogen",
       "weight": 14.0067,
-      "symbol": "N"
+      "symbol": "N",
+      "createdAt": 1523179301000
     },
     {
       "position": 8,
       "name": "Oxygen",
       "weight": 15.9994,
-      "symbol": "O"
+      "symbol": "O",
+      "createdAt": 1523079301000
     },
     {
       "position": 9,
       "name": "Fluorine",
       "weight": 18.9984,
-      "symbol": "F"
+      "symbol": "F",
+      "createdAt": 1522979301000
     },
     {
       "position": 10,
       "name": "Neon",
       "weight": 20.1797,
-      "symbol": "Ne"
+      "symbol": "Ne",
+      "createdAt": 1522879301000
     },
     {
       "position": 11,
       "name": "Sodium",
       "weight": 22.9897,
-      "symbol": "Na"
+      "symbol": "Na",
+      "createdAt": 1522779301000
     },
     {
       "position": 12,
       "name": "Magnesium",
       "weight": 24.305,
-      "symbol": "Mg"
+      "symbol": "Mg",
+      "createdAt": 1522679301000
     },
     {
       "position": 13,
       "name": "Aluminum",
       "weight": 26.9815,
-      "symbol": "Al"
+      "symbol": "Al",
+      "createdAt": 1522579301000
     },
     {
       "position": 14,
       "name": "Silicon",
       "weight": 28.0855,
-      "symbol": "Si"
+      "symbol": "Si",
+      "createdAt": 1522479301000
     },
     {
       "position": 15,
       "name": "Phosphorus",
       "weight": 30.9738,
-      "symbol": "P"
+      "symbol": "P",
+      "createdAt": 1522379301000
     },
     {
       "position": 16,
       "name": "Sulfur",
       "weight": 32.065,
-      "symbol": "S"
+      "symbol": "S",
+      "createdAt": 1522279301000
     },
     {
       "position": 17,
       "name": "Chlorine",
       "weight": 35.453,
-      "symbol": "Cl"
+      "symbol": "Cl",
+      "createdAt": 1522179301000
     },
     {
       "position": 18,
       "name": "Argon",
       "weight": 39.948,
-      "symbol": "Ar"
+      "symbol": "Ar",
+      "createdAt": 1522079301000
     },
     {
       "position": 19,
       "name": "Potassium",
       "weight": 39.0983,
-      "symbol": "K"
+      "symbol": "K",
+      "createdAt": 1521979301000
     },
     {
       "position": 20,
       "name": "Calcium",
       "weight": 40.078,
-      "symbol": "Ca"
+      "symbol": "Ca",
+      "createdAt": 1521879301000
     }
   ]
 }

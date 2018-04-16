@@ -5,15 +5,25 @@
 
   <mat-table #table [dataSource]="dataSource" class="example-table rest-grid">
     <ng-container *ngFor="let column of displayedColumns;" matColumnDef="{{ column }}">
-      <mat-header-cell *matHeaderCellDef (click)="doSort(column)">
-        {{ column.toLocaleUpperCase() }}
+      <mat-header-cell *matHeaderCellDef>
+        <span>{{ column.toLocaleUpperCase() }}</span>
 
-        <mat-icon *ngIf="isInAsc(column)">arrow_upward</mat-icon>
-        <mat-icon *ngIf="isInDesc(column)">arrow_downward</mat-icon>
+        <button mat-button (click)="doSort(column)">
+          <mat-icon *ngIf="!isInAsc(column) && !isInDesc(column)">sort</mat-icon>
+          <mat-icon *ngIf="isInAsc(column)">arrow_upward</mat-icon>
+          <mat-icon *ngIf="isInDesc(column)">arrow_downward</mat-icon>
+        </button>
+
+        <rg-contextual-menu>
+          <rg-date-filter *ngIf="columns[column].type === 'date'"></rg-date-filter>
+          <rg-number-filter *ngIf="columns[column].type === 'number'"></rg-number-filter>
+          <rg-string-filter *ngIf="columns[column].type === 'string'"></rg-string-filter>
+        </rg-contextual-menu>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row;">
-        {{ row[column] }}
+        <span *ngIf="columns[column].type != 'date'">{{ row[column] }}</span>
+        <span *ngIf="columns[column].type === 'date'">{{ row[column] | date }}</span>
       </mat-cell>
     </ng-container>
 

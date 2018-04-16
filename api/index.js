@@ -110,12 +110,12 @@ app.get('/api/elements', (req, res) => {
 
   setTimeout(() => {
     res.send(response)
-  }, 2000);
+  }, 100);
 });
 
 
 app.get('/api/elements/options', (req, res) => {
-  setTimeout(() => res.send(projects.grid), 3000);
+  setTimeout(() => res.send(projects.grid), 300);
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

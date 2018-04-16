@@ -14,7 +14,7 @@ import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {RestGridDataService} from './rest-grid-data.service';
-import {DataModelInterface} from './options/grid-options.interface';
+import {ColumnInterface, DataModelInterface} from './options/grid-options.interface';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -30,6 +30,8 @@ export class RestGridComponent implements OnInit {
   dataSource: MatTableDataSource<DataModelInterface> = new MatTableDataSource<DataModelInterface>();
 
   url: Subject<string> = new Subject<string>();
+
+  columns: any = {};
 
 
   constructor(private restGridDataService: RestGridDataService) {
@@ -67,6 +69,11 @@ export class RestGridComponent implements OnInit {
       const [optionsData, mergedData] = data;
 
       this.displayedColumns = optionsData.columns.map((e) => e.name);
+
+      optionsData.columns.map((e: ColumnInterface) => {
+        this.columns[e.name] = e;
+      });
+
       this.dataSource.data = mergedData.items;
       this.resultsLength = mergedData.totalCount;
       this.isLoadingResults = false;

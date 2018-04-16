@@ -1,8 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { RestGridModule } from '../rest-grid/rest-grid.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {RestGridModule} from '../rest-grid/rest-grid.module';
 
 @NgModule({
   declarations: [
@@ -16,4 +15,5 @@ import { RestGridModule } from '../rest-grid/rest-grid.module';
     AppComponent
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

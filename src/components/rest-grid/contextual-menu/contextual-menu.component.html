@@ -1,0 +1,10 @@
+<div style="display: inline-block;">
+  <button mat-button (click)="toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div *ngIf="isOpen" style="position:absolute;z-index:2;">
+    <ng-content></ng-content>
+  </div>
+</div>
+

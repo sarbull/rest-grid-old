@@ -14,7 +14,7 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MAT_DATE_LOCALE,
-  MatSelectModule
+  MatSelectModule, MatButtonModule
 } from '@angular/material';
 
 import {NumberFilter} from './filters/number/number.filter';
@@ -23,6 +23,7 @@ import {StringFilter} from './filters/string/string.filter';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RestGridDataService} from './rest-grid-data.service';
+import {ContextualMenuModule} from './contextual-menu/contextual-menu.module';
 
 @NgModule({
   declarations: [
@@ -32,11 +33,13 @@ import {RestGridDataService} from './rest-grid-data.service';
     StringFilter
   ],
   imports: [
+    ContextualMenuModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
     MatCheckboxModule,
     MatMenuModule,
+    MatButtonModule,
     MatIconModule,
     MatSortModule,
     MatCardModule,

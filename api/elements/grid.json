@@ -13,6 +13,12 @@
       "sort": false
     },
     {
+      "name": "createdAt",
+      "type": "date",
+      "filter": false,
+      "sort": false
+    },
+    {
       "name": "weight",
       "type": "number",
       "filter": false,
