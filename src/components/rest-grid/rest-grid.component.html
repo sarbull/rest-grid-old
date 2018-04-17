@@ -8,13 +8,13 @@
       <mat-header-cell *matHeaderCellDef>
         <span>{{ column.toLocaleUpperCase() }}</span>
 
-        <button mat-button (click)="doSort(column)">
+        <button mat-button (click)="doSort(column)" *ngIf="columns[column].sort">
           <mat-icon *ngIf="!isInAsc(column) && !isInDesc(column)">sort</mat-icon>
           <mat-icon *ngIf="isInAsc(column)">arrow_upward</mat-icon>
           <mat-icon *ngIf="isInDesc(column)">arrow_downward</mat-icon>
         </button>
 
-        <rg-contextual-menu>
+        <rg-contextual-menu  *ngIf="columns[column].filter">
           <rg-date-filter *ngIf="columns[column].type === 'date'"></rg-date-filter>
           <rg-number-filter *ngIf="columns[column].type === 'number'"></rg-number-filter>
           <rg-string-filter *ngIf="columns[column].type === 'string'"></rg-string-filter>

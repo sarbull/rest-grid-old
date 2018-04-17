@@ -3,32 +3,32 @@
     {
       "name": "position",
       "type": "number",
-      "filter": false,
-      "sort": false
+      "filter": true,
+      "sort": true
     },
     {
       "name": "name",
       "type": "string",
-      "filter": false,
-      "sort": false
+      "filter": true,
+      "sort": true
     },
     {
       "name": "createdAt",
       "type": "date",
-      "filter": false,
-      "sort": false
+      "filter": true,
+      "sort": true
     },
     {
       "name": "weight",
       "type": "number",
-      "filter": false,
-      "sort": false
+      "filter": true,
+      "sort": true
     },
     {
       "name": "symbol",
       "type": "string",
-      "filter": false,
-      "sort": false
+      "filter": true,
+      "sort": true
     }
   ]
 }
