@@ -1,9 +1,13 @@
 <mat-card class="rg-column">
   <mat-form-field>
-    <input matInput (keyup)="readFrom($event)" type="number" placeholder="From">
+    <input matInput [(ngModel)]="fromNumber" type="number" placeholder="From">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput (keyup)="readTo($event)" type="number" placeholder="To">
+    <input matInput [(ngModel)]="toNumber" type="number" placeholder="To">
   </mat-form-field>
+
+  <button mat-button (click)="clear()">
+    <mat-icon>clear</mat-icon>
+  </button>
 </mat-card>

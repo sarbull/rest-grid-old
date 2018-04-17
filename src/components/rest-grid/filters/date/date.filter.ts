@@ -6,14 +6,11 @@ import {Component} from '@angular/core';
   templateUrl: 'date.filter.html',
 })
 export class DateFilter {
-  from: number;
-  to: number;
+  fromDate: any;
+  toDate: any;
 
-  readFrom(event: any) {
-    this.from = event.target.value;
-  }
-
-  readTo(event: any) {
-    this.to = event.target.value;
+  clear(): void {
+    delete this.fromDate;
+    delete this.toDate;
   }
 }

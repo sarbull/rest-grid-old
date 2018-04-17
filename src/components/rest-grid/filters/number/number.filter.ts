@@ -6,14 +6,11 @@ import {Component} from '@angular/core';
   templateUrl: 'number.filter.html',
 })
 export class NumberFilter {
-  from: number;
-  to: number;
+  fromNumber: number;
+  toNumber: number;
 
-  readFrom(event: any) {
-    this.from = event.target.value;
-  }
-
-  readTo(event: any) {
-    this.to = event.target.value;
+  clear(): void {
+    delete this.fromNumber;
+    delete this.toNumber;
   }
 }

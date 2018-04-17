@@ -24,6 +24,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RestGridDataService} from './rest-grid-data.service';
 import {ContextualMenuModule} from './contextual-menu/contextual-menu.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {ContextualMenuModule} from './contextual-menu/contextual-menu.module';
   ],
   imports: [
     ContextualMenuModule,
+    FormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,

@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
 export class StringFilter {
   data: string;
 
-  readData(event: any) {
-    this.data = event.target.value;
+  clear(): void {
+    delete this.data;
   }
 }

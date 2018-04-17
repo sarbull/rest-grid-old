@@ -1,5 +1,9 @@
 <mat-card class="rg-column">
   <mat-form-field>
-    <input matInput (keyup)="readData($event)" type="text" placeholder="Text">
+    <input matInput [(ngModel)]="data" type="text" placeholder="Text">
   </mat-form-field>
+
+  <button mat-button (click)="clear()">
+    <mat-icon>clear</mat-icon>
+  </button>
 </mat-card>
