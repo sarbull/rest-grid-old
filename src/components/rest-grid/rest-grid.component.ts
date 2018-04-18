@@ -33,7 +33,6 @@ export class RestGridComponent implements OnInit {
 
   columns: any = {};
 
-
   constructor(private restGridDataService: RestGridDataService) {
   }
 
@@ -78,6 +77,20 @@ export class RestGridComponent implements OnInit {
       this.resultsLength = mergedData.totalCount;
       this.isLoadingResults = false;
     });
+  }
+
+  onNotify(input: any): void {
+    input = input.filter((e) => {
+      return e.value !== undefined;
+    });
+
+    input.map((e) => {
+      e.value = new Date(e.value).getTime();
+
+      this.restGridDataService.doFilter(e);
+    });
+
+    this.url.next();
   }
 
   doSort(column: string): void {

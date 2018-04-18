@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'rg-string-filter',
@@ -6,6 +6,8 @@ import {Component} from '@angular/core';
   templateUrl: 'string.filter.html',
 })
 export class StringFilter {
+  @Input() entity;
+
   data: string;
 
   clear(): void {

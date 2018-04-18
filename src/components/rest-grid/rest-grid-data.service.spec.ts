@@ -222,6 +222,16 @@ describe('RestGridDataService', () => {
     expect(service.getUrlSorters()).toEqual('asc.column1');
   });
 
+  it('should do filter properly', () => {
+    service.doFilter({
+      column: 'column1',
+      comparator: '>',
+      value: 4
+    });
+
+    expect(service.getUrlFilters()).toEqual('column1>4');
+  });
+
   it('should return an Observable<GridOptionsInterface> on get grid options', () => {
     const gridOptions = {
       columns: [

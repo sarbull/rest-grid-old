@@ -103,6 +103,12 @@ export class RestGridDataService {
     return this.sorters.get('desc').indexOf(column) !== -1;
   }
 
+  doFilter(entity): void {
+    if (entity.value != null) {
+      this.addFilter(entity.column, entity.comparator, entity.value);
+    }
+  }
+
   // doSort('column1'); initialise and switch asc to desc
   doSort(column: string): void {
     const isInAsc = this.isInAsc(column);
