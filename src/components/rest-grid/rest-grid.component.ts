@@ -79,14 +79,8 @@ export class RestGridComponent implements OnInit {
     });
   }
 
-  onNotify(input: any): void {
-    input = input.filter((e) => {
-      return e.value !== undefined;
-    });
-
-    input.map((e) => {
-      e.value = new Date(e.value).getTime();
-
+  handleFilter(input: any): void {
+    input.forEach((e) => {
       this.restGridDataService.doFilter(e);
     });
 

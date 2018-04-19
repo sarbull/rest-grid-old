@@ -222,7 +222,7 @@ describe('RestGridDataService', () => {
     expect(service.getUrlSorters()).toEqual('asc.column1');
   });
 
-  xit('should do filter properly', () => {
+  it('should do filter properly', () => {
     service.doFilter({
       column: 'column1',
       comparator: '>',

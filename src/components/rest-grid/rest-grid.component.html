@@ -15,9 +15,9 @@
         </button>
 
         <rg-contextual-menu  *ngIf="columns[column].filter">
-          <rg-date-filter *ngIf="columns[column].type === 'date'" [entity]="columns[column]" (notify)="onNotify($event)"></rg-date-filter>
-          <rg-number-filter *ngIf="columns[column].type === 'number'" [entity]="columns[column]"></rg-number-filter>
-          <rg-string-filter *ngIf="columns[column].type === 'string'" [entity]="columns[column]"></rg-string-filter>
+          <rg-date-filter *ngIf="columns[column].type === 'date'" [entity]="columns[column]" (notify)="handleFilter($event)"></rg-date-filter>
+          <rg-number-filter *ngIf="columns[column].type === 'number'" [entity]="columns[column]" (notify)="handleFilter($event)"></rg-number-filter>
+          <rg-string-filter *ngIf="columns[column].type === 'string'" [entity]="columns[column]" (notify)="handleFilter($event)"></rg-string-filter>
         </rg-contextual-menu>
       </mat-header-cell>
 

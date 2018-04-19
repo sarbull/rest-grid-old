@@ -86,10 +86,12 @@ export class RestGridDataService {
   removeFilter(column: string, comparator: string): void {
     const data = this.filters.get('filters');
 
-    delete data[column][comparator];
+    if (data[column]) {
+      delete data[column][comparator];
 
-    if (Object.keys(data[column]).length === 0) {
-      delete data[column];
+      if (Object.keys(data[column]).length === 0) {
+        delete data[column];
+      }
     }
 
     this.filters.set('filters', data);
@@ -105,7 +107,11 @@ export class RestGridDataService {
 
   doFilter(entity): void {
     if (entity.value != null) {
+      console.log('add', entity.column, entity.value);
       this.addFilter(entity.column, entity.comparator, entity.value);
+    } else {
+      console.log('remove', entity.column, entity.value);
+      this.removeFilter(entity.column, entity.comparator);
     }
   }
 

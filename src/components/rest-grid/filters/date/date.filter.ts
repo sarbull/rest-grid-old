@@ -12,25 +12,34 @@ export class DateFilter {
   fromDate: any;
   toDate: any;
 
-  clear(): void {
-    delete this.fromDate;
-    delete this.toDate;
-  }
+  getData(): Array<Object> {
+    const fromDate = new Date(this.fromDate).getTime();
+    const toDate = new Date(this.toDate).getTime();
+    const fromDateIsTimestamp = fromDate.toString() !== 'NaN';
+    const toDateIsTimestamp = toDate.toString() !== 'NaN';
 
-  submit(): void {
-    const t = [
+    return [
       {
         column: this.entity.name,
         comparator: '>',
-        value: this.fromDate
+        value: fromDateIsTimestamp ? fromDate : null
       },
       {
         column: this.entity.name,
         comparator: '<',
-        value: this.toDate
-      },
+        value: toDateIsTimestamp ? toDate : null
+      }
     ];
+  }
 
-    this.notify.emit(t);
+  clear(): void {
+    delete this.fromDate;
+    delete this.toDate;
+
+    this.notify.emit(this.getData());
+  }
+
+  submit(): void {
+    this.notify.emit(this.getData());
   }
 }
