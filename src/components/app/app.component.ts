@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   endpoint: String = '/api/elements';
+
+  onActionClick(data): void {
+    console.log('parent', data);
+  }
 }

@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  Input
+  Input, Output, EventEmitter
 } from '@angular/core';
 import {
   MatPaginator,
@@ -25,13 +25,17 @@ export class RestGridComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   @Input() endpoint: string;
-  displayedColumns: String[] = [];
+  displayedColumns: string[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<DataModelInterface> = new MatTableDataSource<DataModelInterface>();
+
+  @Output() onActionClick: EventEmitter<Object> = new EventEmitter<Object>();
 
   url: Subject<string> = new Subject<string>();
 
   columns: any = {};
+
+  actions: string[] = [];
 
   constructor(private restGridDataService: RestGridDataService) {
   }
@@ -63,20 +67,42 @@ export class RestGridComponent implements OnInit {
     combineLatest(
       options,
       merged
-      // elements
     ).subscribe(data => {
       const [optionsData, mergedData] = data;
-
-      this.displayedColumns = optionsData.columns.map((e) => e.name);
+      let columns;
 
       optionsData.columns.map((e: ColumnInterface) => {
         this.columns[e.name] = e;
       });
 
+      columns = optionsData.columns.map((e) => e.name);
+
+      if (optionsData.actions.length > 0) {
+        columns.unshift('actions');
+
+        this.columns['actions'] = {
+          sort: false,
+          filter: false,
+          type: 'action',
+          name: 'actions'
+        };
+      }
+
+      this.actions = optionsData.actions;
+      this.displayedColumns = columns;
       this.dataSource.data = mergedData.items;
       this.resultsLength = mergedData.totalCount;
       this.isLoadingResults = false;
     });
+  }
+
+  triggerAction(menuItem: String, row: any) {
+    const data = {
+      menuItem: menuItem,
+      row: row
+    };
+
+    this.onActionClick.emit(data);
   }
 
   handleFilter(input: any): void {

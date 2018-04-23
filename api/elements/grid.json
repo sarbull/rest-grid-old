@@ -1,4 +1,8 @@
 {
+  "actions": [
+    "EDIT_ACTION",
+    "DELETE_ACTION"
+  ],
   "columns": [
     {
       "name": "position",
