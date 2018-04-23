@@ -234,6 +234,10 @@ describe('RestGridDataService', () => {
 
   it('should return an Observable<GridOptionsInterface> on get grid options', () => {
     const gridOptions = {
+      actions: [
+        'EDIT_ACTION',
+        'DELETE_ACTION'
+      ],
       columns: [
         {
           name: 'position',
