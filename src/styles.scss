@@ -14,6 +14,12 @@ mat-cell.mat-cell, mat-header-cell.mat-header-cell {
 }
 
 .mat-table.rest-grid {
+
+  .mat-row, .mat-header-row {
+    //background: white;
+    min-width: 900px;
+  }
+
   .mat-button {
     padding:0px;
     min-width:30px;
