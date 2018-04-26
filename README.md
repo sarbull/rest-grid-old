@@ -4,6 +4,28 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
+## Example
+```html
+<rg-rest-grid [endpoint]="endpoint" (onActionClick)="onActionClick($event)"></rg-rest-grid>
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'rg-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  endpoint: String = '/api/elements';
+
+  onActionClick(data): void {
+    console.log('parent', data);
+  }
+}
+```
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
