@@ -9,7 +9,7 @@
         <span>{{ column.toLocaleUpperCase() }}</span>
 
         <span *ngIf="column !== 'actions'">
-          <button mat-button (click)="doSort(column)" *ngIf="columns[column].sort">
+          <button mat-button (click)="triggerSort(column)" *ngIf="columns[column].sort">
             <mat-icon *ngIf="!isInAsc(column) && !isInDesc(column)">sort</mat-icon>
             <mat-icon *ngIf="isInAsc(column)">arrow_upward</mat-icon>
             <mat-icon *ngIf="isInDesc(column)">arrow_downward</mat-icon>

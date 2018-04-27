@@ -129,7 +129,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
  |   |       |       `-- string.filter.ts
  |   |       |-- options
  |   |       |   `-- grid-options.interface.ts
- |   |       |-- rest-grid-data.service.spec.ts
+ |   |       |-- rest-grid-data.component.spec.ts
  |   |       |-- rest-grid-data.service.ts
  |   |       |-- rest-grid.component.html
  |   |       |-- rest-grid.component.ts

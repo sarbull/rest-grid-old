@@ -13,9 +13,10 @@ import {combineLatest} from 'rxjs/observable/combineLatest';
 import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
-import {RestGridDataService} from './rest-grid-data.service';
-import {ColumnInterface, DataModelInterface} from './options/grid-options.interface';
+import {ColumnInterface, DataModelInterface, GridOptionsInterface} from './options/grid-options.interface';
 import {Subject} from 'rxjs/Subject';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'rg-rest-grid',
@@ -31,30 +32,39 @@ export class RestGridComponent implements OnInit {
 
   @Output() onActionClick: EventEmitter<Object> = new EventEmitter<Object>();
 
-  url: Subject<string> = new Subject<string>();
+  urlSubject: Subject<string> = new Subject<string>();
 
   columns: any = {};
 
   actions: string[] = [];
 
-  constructor(private restGridDataService: RestGridDataService) {
+  filters: Map<String, Object> = new Map<String, Object>();
+  sorters: Map<String, Array<String>> = new Map<String, Array<String>>();
+  query: Map<String, any> = new Map<String, any>();
+  url: string;
+
+
+  constructor(private http: HttpClient) {
+    this.filters.set('filters', []);
+    this.sorters.set('asc', []);
+    this.sorters.set('desc', []);
   }
 
   ngOnInit() {
-    this.restGridDataService.setUrl(this.endpoint);
+    this.setUrl(this.endpoint);
 
     const merged = merge(
       this.paginator.page,
-      this.url
+      this.urlSubject
     ).pipe(
       startWith({}),
       switchMap(() => {
         this.isLoadingResults = true;
 
-        this.restGridDataService.setQueryParam('currentPage', this.paginator.pageIndex + 1);
-        this.restGridDataService.setQueryParam('itemsPerPage', this.paginator.pageSize);
+        this.setQueryParam('currentPage', this.paginator.pageIndex + 1);
+        this.setQueryParam('itemsPerPage', this.paginator.pageSize);
 
-        return this.restGridDataService.getElements();
+        return this.getElements();
       }),
       map(data => {
 
@@ -62,7 +72,7 @@ export class RestGridComponent implements OnInit {
       })
     );
 
-    const options = this.restGridDataService.getGridOptions();
+    const options = this.getGridOptions();
 
     combineLatest(
       options,
@@ -107,23 +117,196 @@ export class RestGridComponent implements OnInit {
 
   handleFilter(input: any): void {
     input.forEach((e) => {
-      this.restGridDataService.doFilter(e);
+      this.doFilter(e);
     });
 
-    this.url.next();
+    this.urlSubject.next();
   }
 
-  doSort(column: string): void {
-    this.restGridDataService.doSort(column);
+  triggerSort(column: string): void {
+    this.doSort(column);
 
-    this.url.next();
+    this.urlSubject.next();
+  }
+
+  setUrl(url: string): void {
+    this.url = url;
+  }
+
+  getUrl(): string {
+    const query = [];
+
+    const urlSorters = this.getUrlSorters();
+    const urlFilters = this.getUrlFilters();
+
+    let url = this.url;
+
+    this.query.forEach((value, key) => {
+      if (value) {
+        query.push(`${key}=${value}`);
+      }
+    });
+
+    if (urlSorters) {
+      query.push(`sort=${urlSorters}`);
+    }
+
+    if (urlFilters) {
+      query.push(`filter=${urlFilters}`);
+    }
+
+    if (query.length) {
+      url = `${url}?${query.join('&')}`;
+    }
+
+    return url;
+  }
+
+  setQueryParam(key: String, value: any): void {
+    this.query.set(key, value);
+  }
+
+  // addFilter('column1', '>', 2)
+  // addFilter('column1', '<', 5)
+  // addFilter('column2', '->', [1, 2, 3])
+  // addFilter('column3', '==', 5)
+  // addFilter('column4', '~', 'example')
+  addFilter(column: string, comparator: string, value: any): void {
+    const data = this.filters.get('filters');
+
+    const newData = {
+      ...data,
+      [column]: {
+        ...data[column],
+        [comparator]: value
+      }
+    };
+
+    this.filters.set('filters', newData);
+  }
+
+  // addFilter('column1', '>', 2)
+  // addFilter('column1', '<', 5)
+  // addFilter('column2', '->', [1, 2, 3])
+  // addFilter('column3', '==', 5)
+  // addFilter('column4', '~', 'example')
+  removeFilter(column: string, comparator: string): void {
+    const data = this.filters.get('filters');
+
+    if (data[column]) {
+      delete data[column][comparator];
+
+      if (Object.keys(data[column]).length === 0) {
+        delete data[column];
+      }
+    }
+
+    this.filters.set('filters', data);
   }
 
   isInAsc(column: string): boolean {
-    return this.restGridDataService.isInAsc(column);
+    return this.sorters.get('asc').indexOf(column) !== -1;
   }
 
   isInDesc(column: string): boolean {
-    return this.restGridDataService.isInDesc(column);
+    return this.sorters.get('desc').indexOf(column) !== -1;
+  }
+
+  doFilter(entity): void {
+    if (entity.value != null) {
+      console.log('add', entity.column, entity.value);
+      this.addFilter(entity.column, entity.comparator, entity.value);
+    } else {
+      console.log('remove', entity.column, entity.value);
+      this.removeFilter(entity.column, entity.comparator);
+    }
+  }
+
+  // doSort('column1'); initialise and switch asc to desc
+  doSort(column: string): void {
+    const isInAsc = this.isInAsc(column);
+    const isInDesc = this.isInDesc(column);
+
+    if (!isInAsc && !isInDesc) {
+      this.addSorter('asc', column);
+    }
+
+    if (isInAsc && !isInDesc) {
+      this.removeSorter('asc', column);
+
+      this.addSorter('desc', column);
+    } else {
+      this.removeSorter('desc', column);
+
+      this.addSorter('asc', column);
+    }
+  }
+
+  // addSorter('asc', 'column1');
+  addSorter(key: String, value: String): void {
+    const data = this.sorters.get(key);
+
+    // check if value is in array
+    if (data.indexOf(value)) {
+      data.push(value);
+
+      this.sorters.set(key, data);
+    }
+  }
+
+  // removeSorter('asc', 'column1');
+  removeSorter(key: String, value: String): void {
+    let data = this.sorters.get(key);
+
+    data = data.filter((v) => {
+      return v !== value;
+    });
+
+    this.sorters.set(key, data);
+  }
+
+  getUrlSorters(): String {
+    const ascending = this.sorters.get('asc').map((e) => {
+      return `asc.${e}`;
+    });
+
+    const descending = this.sorters.get('desc').map((e) => {
+      return `desc.${e}`;
+    });
+
+    return `${ascending.concat(descending).join()}`;
+  }
+
+  // filter=column1>5,column1<7
+  getUrlFilters(): String {
+    const url = '';
+    const flatQueryParams = [];
+
+    const filters: Object = this.filters.get('filters');
+
+    Object.keys(filters).forEach((column) => {
+      Object.keys(filters[column]).forEach((comparator) => {
+        const value = filters[column][comparator];
+
+        flatQueryParams.push(`${column}${comparator}${value}`);
+      });
+    });
+
+    return `${flatQueryParams.join()}`;
+  }
+
+  queryElements(currentPage: number, itemsPerPage: number): Observable<DataModelInterface> {
+    this.setQueryParam('currentPage', currentPage + 1);
+    this.setQueryParam('itemsPerPage', itemsPerPage);
+
+    return this.getElements();
+  }
+
+  getElements(): Observable<DataModelInterface> {
+    return this.http.get<DataModelInterface>(this.getUrl());
+  }
+
+  getGridOptions(): Observable<GridOptionsInterface> {
+    return this.http.get<GridOptionsInterface>(`${this.url}/options`);
   }
 }
